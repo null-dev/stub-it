@@ -1,4 +1,4 @@
-# StubIt!
+# StubIt! [![Build Status](http://ci.nulldev.xyz/job/StubIt/badge/icon)](http://ci.nulldev.xyz/job/StubIt/)
 
 ## About
 StubIt! is a simple program to make stubbed versions of Java source code.
@@ -43,6 +43,9 @@ class DateManager {
     }
 }
 ```
+
+## Download
+The latest build can be downloaded at my CI server here: http://ci.nulldev.xyz/job/StubIt/lastSuccessfulBuild/deployedArtifacts/download/artifact.1/
 
 ## Usage
 Using StubIt! is very simple, just pass it a bunch of files to stub:
