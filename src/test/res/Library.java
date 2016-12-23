@@ -47,6 +47,12 @@ public class Library {
     private Map<Long, List<Track>> tracks = new HashMap<>();
     private final AtomicReference<ReentrantLock> masterLock = new AtomicReference<>(null);
 
+    private final String three = "one" + "two";
+    private final boolean mathTest = !((byte) (1 + 2 << 5 - 10 / 2) > 20);
+    private final boolean mathTest2 = !((byte) (1 + 2 << 5 - 10 / 2) > Math.abs(0)); //Should be stubbed
+    private final int[] arrayTest = new int[]{0,1,2,3,4};
+    private final Class classTest = HashMap.class;
+
     {
         System.out.println("This is not stubbed out!");
     }

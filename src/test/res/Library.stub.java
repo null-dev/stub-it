@@ -39,7 +39,7 @@ public class Library {
 
     private int lastIntId = 10;
 
-    private long lastLongId;
+    private long lastLongId = 0;
 
     private List<Manga> mangas = null;
 
@@ -52,6 +52,17 @@ public class Library {
     private Map<Long, List<Track>> tracks = null;
 
     private final AtomicReference<ReentrantLock> masterLock = null;
+
+    private final String three = "one" + "two";
+
+    private final boolean mathTest = !((byte) (1 + 2 << 5 - 10 / 2) > 20);
+
+    //Should be stubbed
+    private final boolean mathTest2 = false;
+
+    private final int[] arrayTest = new int[] { 0, 1, 2, 3, 4 };
+
+    private final Class classTest = HashMap.class;
 
     {
     }

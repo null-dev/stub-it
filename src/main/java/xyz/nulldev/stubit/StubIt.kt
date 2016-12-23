@@ -144,6 +144,16 @@ class StubIt {
                 return isDynamic(n.condition) || isDynamic(n.elseExpr) || isDynamic(n.thenExpr)
             } else if(n is EnclosedExpr) {
                 if(n.inner.isPresent) return isDynamic(n.inner.get())
+            } else if(n is ArrayAccessExpr) {
+                return isDynamic(n.name) || isDynamic(n.index)
+            } else if(n is UnaryExpr) {
+                when(n.operator) {
+                    UnaryExpr.Operator.PREFIX_DECREMENT,
+                    UnaryExpr.Operator.POSTFIX_DECREMENT,
+                    UnaryExpr.Operator.PREFIX_INCREMENT,
+                    UnaryExpr.Operator.POSTFIX_INCREMENT -> return false
+                    else -> return isDynamic(n.expression)
+                }
             } else return n !is LiteralExpr
             return false
         }
