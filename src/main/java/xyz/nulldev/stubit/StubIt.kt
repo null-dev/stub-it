@@ -70,12 +70,11 @@ class StubIt {
         } else {
             for(file in files) {
                 val cu = JavaParser.parse(file)
-                val output = if(!print)
-                    "${file.nameWithoutExtension}.$extension"
-                else
-                    null
 
-                processCu(cu, File(file.parentFile, output))
+                processCu(cu, if(!print)
+                    File(file.parentFile, "${file.nameWithoutExtension}.$extension")
+                else
+                    null)
             }
         }
     }
