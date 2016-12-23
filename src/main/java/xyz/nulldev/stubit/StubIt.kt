@@ -88,7 +88,7 @@ class StubIt {
         val RUNTIME_EXCEPTION_BLK = BlockStmt().addStatement(RUNTIME_EXCEPTION_STMT)!!
 
         override fun visit(n: MethodDeclaration, arg: Void?) {
-            n.setBody(RUNTIME_EXCEPTION_BLK)
+            if(n.body.isPresent) n.setBody(RUNTIME_EXCEPTION_BLK)
         }
 
         override fun visit(n: FieldDeclaration, arg: Void?) {
