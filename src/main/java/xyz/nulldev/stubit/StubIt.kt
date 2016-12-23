@@ -101,11 +101,16 @@ class StubIt {
                 val init = variable.initializer.get()
 
                 //Null out any dynamic initializer
-                if(init !is LiteralExpr) {
-                    val expr = if(n.commonType is PrimitiveType)
-                        null
-                    else
+                if(isDynamic(init)) {
+                    val expr = if(n.commonType is PrimitiveType) {
+                        when(n.commonType) {
+                            PrimitiveType.BOOLEAN_TYPE -> BooleanLiteralExpr()
+                            PrimitiveType.CHAR_TYPE -> CharLiteralExpr()
+                            else -> IntegerLiteralExpr()
+                        }
+                    } else {
                         NullLiteralExpr()
+                    }
                     variable.setInitializer(expr)
                 }
             }
@@ -117,6 +122,30 @@ class StubIt {
 
         override fun visit(n: BlockStmt, arg: Void?) {
             n.statements.clear()
+        }
+
+        fun isDynamic(n: Expression?): Boolean {
+            if(n == null) {
+                return false
+            } else if(n is BinaryExpr) {
+                return isDynamic(n.left) || isDynamic(n.right)
+            } else if(n is CastExpr) {
+                return isDynamic(n.expression)
+            } else if(n is ArrayCreationExpr) {
+                if(n.initializer.isPresent)
+                    return isDynamic(n.initializer.get())
+            } else if(n is ArrayInitializerExpr) {
+                n.values
+                        .filter { isDynamic(it) }
+                        .forEach { return true }
+            } else if(n is ClassExpr) {
+                return false
+            } else if(n is ConditionalExpr) {
+                return isDynamic(n.condition) || isDynamic(n.elseExpr) || isDynamic(n.thenExpr)
+            } else if(n is EnclosedExpr) {
+                if(n.inner.isPresent) return isDynamic(n.inner.get())
+            } else return n !is LiteralExpr
+            return false
         }
     }
 }
