@@ -45,7 +45,7 @@ class DateManager {
 ```
 
 ## Download
-The latest build can be downloaded at my CI server here: http://ci.nulldev.xyz/job/StubIt/lastSuccessfulBuild/deployedArtifacts/download/artifact.1/
+The latest build can be downloaded at my CI server here: http://ci.nulldev.xyz/job/StubIt/lastSuccessfulBuild/artifact/target/
 
 ## Usage
 Using StubIt! is very simple, just pass it a bunch of files to stub:
